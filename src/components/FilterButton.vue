@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 px-0">
+  <div class="col-12 px-0 my-5">
     <div class="row mx-0">
       <div class="col-1 px-0 align-items-center">
         <svg
@@ -47,7 +47,15 @@
           <path :d="svgD" :class="[ isActive ? 'fillActive' : 'fillInactive']" />
         </svg>
       </div>
-      <div class="col-8 px-0 d-flex align-items-center condensedFont">{{filterName}}</div>
+      <p 
+      class="col-8 px-0 my-0 condensedFont"
+      :class="[ isActive ? 'nameColorActive' : 'fillInactive']">{{filterName}}</p>
+    </div>
+
+    <div class="row mx-0">
+      <p 
+      class="filterOption col-8 offset-4 px-0"
+      :class="[ isActive ? 'fillActive' : 'fillInactive']">{{filterOpt}}</p>
     </div>
   </div>
 </template>
@@ -55,22 +63,39 @@
 <script>
 export default {
   name: "FilterButton",
-  props: ["svgD", "filterName", "isActive", "id"],
+  props: ["svgD", "filterName", "isActive", "filterOpt"],
   data() {
     return {};
   },
-  methods:{
-  }
+  methods: {}
 };
 </script>
 
 <style lang="scss" scoped>
 .fillActive {
   fill: #02b5c4;
+  color: #02b5c4;
+}
+
+.nameColorActive{
+  color: #828282;
 }
 
 .fillInactive {
   fill: #bdbdbd;
+  color:#BDBDBD;
+}
+
+
+.filterOption {
+  font-family: Open Sans Condensed;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.15px;
 }
 </style>
 
