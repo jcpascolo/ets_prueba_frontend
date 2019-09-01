@@ -1,5 +1,5 @@
 <template>
-  <div class="col-6 col-md-12 px-0 my-3">
+  <button type="button" class="col-6 col-md-12 px-0 my-3">
     <div class="row mx-0">
       <div class="col-1 px-0 align-items-center">
         <svg
@@ -57,26 +57,36 @@
       class="filterOption col-8 offset-4 px-0"
       :class="[ isActive ? 'fillActive' : 'fillInactive']">{{filterOpt}}</p>
     </div>
-  </div>
+  </button>
 </template>
 
 <script>
 export default {
   name: "FilterButton",
-  props: ["svgD", "filterName", "isActive", "filterOpt"],
+  props: ["svgD", "filterName", "isActive", "parentFilterOpt"],
   data() {
-    return {};
+    return {
+      filterOpt: ""
+    };
   },
-  watch:{
-    filterOpt(){
-      console.log(this.filterOpt)
-    }
-  },
-  methods: {}
+  methods: {},
+  mounted() {
+    this.filterOpt = this.parentFilterOpt;
+
+    Event.$on('changeOption', data => {
+      if(data.filter == this.filterName){
+        this.filterOpt = data.option;
+      }
+    })
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+button{
+  background-color: white;
+  border: 0px;
+}
 .fillActive {
   fill: #02b5c4;
   color: #02b5c4;

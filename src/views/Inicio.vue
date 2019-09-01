@@ -7,13 +7,12 @@
           <div class="col-12 px-2 px-md-0">
             <div class="row mx-0 w-100">
               <FilterButton
-                type="button"
                 v-for="(filter, index) in filters"
-                :key="index"
+                :key="filter.name"
                 :filterName="filter.name"
                 :svgD="filter.d"
                 :isActive="filter.isActive"
-                :filterOpt="optionSelected[filter.name].option"
+                :parentFilterOpt="optionSelected[filter.name].option"
                 @click.native="toggleActiveClass(index)"
               />
             </div>
@@ -26,21 +25,20 @@
           <div class="col-12 px-0">
             <div class="row mx-0 w-100">
               <OptionButton
-                type="button"
-                v-for="option in activeFilter"
+                v-for="(option,index) in activeFilter"
                 :key="option.name"
                 :icon="option.icon"
                 :name="option.name"
-                @click.native="toggleActiveOption(option.name)"
+                :filterName="option.filterName"
+                @click.native="toggleActiveOption(option.name, index)"
               />
             </div>
           </div>
         </div>
       </div>
       <div class="col-12 col-md-8">
-        <div class="col-12 col-md-8" v-for="asset in assets" :key="asset.id">
+        <div class="col-12 col-md-8" v-for="asset in filteredAssets" :key="asset.id">
           {{asset.id}}
-          {{asset.name}}
           {{asset.currency}}
           {{asset.risk_family}}
         </div>
@@ -65,6 +63,8 @@ export default {
     return {
       assets: [],
 
+      filteredAssets: [],
+
       filters: [
         {
           name: "Currency",
@@ -86,7 +86,7 @@ export default {
             },
             {
               icon: "usaFlag.png",
-              name: "USA"
+              name: "USD"
             }
           ]
         },
@@ -121,12 +121,31 @@ export default {
     activeFilter() {
       for (let i = 0; i < this.filters.length; i++) {
         if (this.filters[i].isActive == true) {
-          return this.filters[i].options;
+          return this.filters[i].options.map(option => {
+            return {
+              filterName: this.filters[i].name,
+              icon: option.icon,
+              name: option.name
+            }
+          })
+          // return [this.filters[i]];
         }
       }
       return [];
-    }
+    },
+
+    // filteredAssets(){
+    //   return this.assets.filter(asset => {
+    //     if( (asset.currency == this.optionSelected["Currency"].option || this.optionSelected["Currency"].option == "All") && (asset.risk_family == this.optionSelected["Family Risk"].option || this.optionSelected["Family Risk"].option == "All") ){
+    //       return true
+    //     }
+    //     else{
+    //       return false;
+    //     }
+    //   })
+    // }
   },
+
   methods: {
     toggleActiveClass(index) {
       this.filters = this.filters.map((filter, ind) => {
@@ -140,20 +159,35 @@ export default {
         }
       });
     },
+    
+    changeAssets(){
+      this.filteredAssets = this.assets.filter(asset => {
+        if( (asset.currency == this.optionSelected["Currency"].option || this.optionSelected["Currency"].option == "All") && (asset.risk_family == this.optionSelected["Family Risk"].option || this.optionSelected["Family Risk"].option == "All") ){
+          return true
+        }
+        else{
+          return false;
+        }
+      })
+    },
 
     toggleActiveOption(name) {
-      console.log("ENTRA EN TOGGLE OPT")
-      console.log(name)
-      console.log(this.optionSelected[this.filterSelected])
+      Event.$emit('changeOption', {
+        filter: this.filterSelected, 
+        option: name,  
+      })
       this.optionSelected[this.filterSelected].option = name;
-      console.log(this.optionSelected[this.filterSelected])
+
+      this.changeAssets();
     }
   },
+
   created(){
     this.filters.forEach(filter => {
       this.optionSelected[filter.name] = {option: filter.options[0].name}
     });
   },
+
   mounted() {
     fetch("http://jsonstub.com/symbols", {
       method: "GET",
@@ -168,20 +202,11 @@ export default {
       .then(res => res.json())
       .then(data => {
         this.assets = data;
+        this.changeAssets();
       })
       .catch(err => {
-        console.log("En el error");
         console.log(err);
-      });
-
-    // this.optionSelected = this.filters.map(filter => {
-    //   return {
-    //     filter: filter.name,
-    //     option: filter.options[0].name
-    //   };
-    // });
-
-  
+      });  
   }
 };
 </script>
@@ -205,8 +230,7 @@ export default {
   }
 }
 
-@media (min-width: 768px) {
-  #fstCol,
+@media (min-width: 768px) {  
   .h-100 {
     height: 100%;
   }
