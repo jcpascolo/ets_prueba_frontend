@@ -143,6 +143,12 @@ export default {
   margin-top: 31px;
 }
 
+@media (max-height: 335px) {
+  #logo{
+    display: none;
+  }
+}
+
 @media (max-width: 835px) {
   .logo-text{
     display: none;

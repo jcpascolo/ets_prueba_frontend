@@ -4,22 +4,39 @@
       <div id="fstCol" class="col-12 col-md-2 px-0">
         <Logo />
         <div class="row mx-0 h-100 align-items-center">
-          <div>
-            <FilterButton
-              type="button"
-              v-for="(filter, index) in filters"
-              :key="filter.name"
-              :filterName="filter.name"
-              :svgD="filter.d"
-              :isActive="filter.isActive"
-              :filterOpt="filter.name"
-              @click.native="toggleActiveClass(index)"
-            />
+          <div class="col-12 px-2 px-md-0">
+            <div class="row mx-0 w-100">
+              <FilterButton
+                type="button"
+                v-for="(filter, index) in filters"
+                :key="index"
+                :filterName="filter.name"
+                :svgD="filter.d"
+                :isActive="filter.isActive"
+                :filterOpt="optionSelected[filter.name].option"
+                @click.native="toggleActiveClass(index)"
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      <div id="sndCol" class="col-12 col-md-2"></div>
+      <div id="sndCol" class="col-12 col-md-2">
+        <div class="row h-100 align-items-center">
+          <div class="col-12 px-0">
+            <div class="row mx-0 w-100">
+              <OptionButton
+                type="button"
+                v-for="option in activeFilter"
+                :key="option.name"
+                :icon="option.icon"
+                :name="option.name"
+                @click.native="toggleActiveOption(option.name)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="col-12 col-md-8">
         <div class="col-12 col-md-8" v-for="asset in assets" :key="asset.id">
           {{asset.id}}
@@ -27,8 +44,6 @@
           {{asset.currency}}
           {{asset.risk_family}}
         </div>
-
-        <img src="../assets/europeFlag.png" alt />
       </div>
     </div>
   </div>
@@ -37,12 +52,14 @@
 <script>
 import Logo from "../components/Logo";
 import FilterButton from "../components/FilterButton";
+import OptionButton from "../components/OptionButton";
 
 export default {
   name: "Inicio",
   components: {
     Logo,
-    FilterButton
+    FilterButton,
+    OptionButton
   },
   data() {
     return {
@@ -56,19 +73,19 @@ export default {
           isActive: true,
           options: [
             {
-              flag: "allFlag.png",
+              icon: "allFlag.png",
               name: "All"
             },
             {
-              flag: "europeFlag.png",
+              icon: "europeFlag.png",
               name: "EUR"
             },
             {
-              flag: "japanFlag.png",
+              icon: "japanFlag.png",
               name: "JPY"
             },
             {
-              flag: "usaFlag.png",
+              icon: "usaFlag.png",
               name: "USA"
             }
           ]
@@ -80,32 +97,41 @@ export default {
           isActive: false,
           options: [
             {
-              flag: "allFlag.png",
+              icon: "allFlag.png",
               name: "All"
             },
             {
-              flag: "europeFlag.png",
-              name: "EUR"
+              icon: "equity.png",
+              name: "Equity"
             },
             {
-              flag: "japanFlag.png",
-              name: "JPY"
-            },
-            {
-              flag: "usaFlag.png",
-              name: "USA"
+              icon: "balanced.png",
+              name: "Balanced"
             }
           ]
         }
       ],
 
-      optionSelected: []
+      filterSelected: "Currency",
+
+      optionSelected: { }
     };
+  },
+  computed: {
+    activeFilter() {
+      for (let i = 0; i < this.filters.length; i++) {
+        if (this.filters[i].isActive == true) {
+          return this.filters[i].options;
+        }
+      }
+      return [];
+    }
   },
   methods: {
     toggleActiveClass(index) {
       this.filters = this.filters.map((filter, ind) => {
         if (index == ind) {
+          this.filterSelected = filter.name;
           filter.isActive = true;
           return filter;
         } else {
@@ -113,7 +139,20 @@ export default {
           return filter;
         }
       });
+    },
+
+    toggleActiveOption(name) {
+      console.log("ENTRA EN TOGGLE OPT")
+      console.log(name)
+      console.log(this.optionSelected[this.filterSelected])
+      this.optionSelected[this.filterSelected].option = name;
+      console.log(this.optionSelected[this.filterSelected])
     }
+  },
+  created(){
+    this.filters.forEach(filter => {
+      this.optionSelected[filter.name] = {option: filter.options[0].name}
+    });
   },
   mounted() {
     fetch("http://jsonstub.com/symbols", {
@@ -134,16 +173,15 @@ export default {
         console.log("En el error");
         console.log(err);
       });
-    
-    this.optionSelected = this.filters.map((filter) => {
-      return {
-        filter: filter.name,
-        option: filter.options[0].name
-      }
-    });
 
-    console.log("OPTIOSNSELECTED: ")
-    console.log(this.optionSelected)
+    // this.optionSelected = this.filters.map(filter => {
+    //   return {
+    //     filter: filter.name,
+    //     option: filter.options[0].name
+    //   };
+    // });
+
+  
   }
 };
 </script>
@@ -151,6 +189,10 @@ export default {
 <style lang="scss" scoped>
 #sndCol {
   background: #f2f2f2;
+}
+
+.w-100 {
+  width: 100%;
 }
 
 @media (max-width: 768px) {

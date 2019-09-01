@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 px-0 my-5">
+  <div class="col-6 col-md-12 px-0 my-3">
     <div class="row mx-0">
       <div class="col-1 px-0 align-items-center">
         <svg
@@ -66,6 +66,11 @@ export default {
   props: ["svgD", "filterName", "isActive", "filterOpt"],
   data() {
     return {};
+  },
+  watch:{
+    filterOpt(){
+      console.log(this.filterOpt)
+    }
   },
   methods: {}
 };
