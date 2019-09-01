@@ -138,20 +138,25 @@ export default {
   z-index: 1;
   width: 94px;
   height: 30px;
-  left: 24px;
-  top: 31px;
+  margin-left: 24px;
+  margin-right: 24px;
+  margin-top: 31px;
 }
 
-@media (max-width: 576px) {
-  #logo {
-    width: 84px;
-    height: 27px;
-    left: 16px;
-    top: 16px;
-  }
-
+@media (max-width: 835px) {
   .logo-text{
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  #logo {
+    position: relative;
+    width: 84px;
+    height: 27px;
+    margin-left: 16px;
+    margin-top: 16px;
+    margin-bottom: 32px;
   }
 }
 </style>
