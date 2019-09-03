@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: "AssetButton",
+  name: "AssetCard",
   props: ["asset", "filters"],
   data() {
     return {
@@ -60,6 +60,26 @@ export default {
   border-radius: 10px;
   .row {
     border-radius: 10px;
+  }
+  
+  animation: cursorAnimate 0.6s infinite;
+}
+
+@keyframes cursorAnimate{
+  0%{ 
+    cursor: url("../assets/pointerClick1.svg"), auto;
+  }
+  25%{
+    cursor: url("../assets/pointerClick2.svg"), auto;
+  }
+  50%{ 
+    cursor: url("../assets/pointerClick3.svg"), auto;
+  }
+  75%{
+    cursor: url("../assets/pointerClick2.svg"), auto;
+  }
+  100%{ 
+    cursor: url("../assets/pointerClick1.svg"), auto;
   }
 }
 

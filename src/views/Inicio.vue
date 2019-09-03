@@ -52,7 +52,7 @@
 
         <p v-show="filteredAssets.length == 0" class="condensedFont">No funds data</p>
         <div v-show="filteredAssets.length > 0" class="row mx-0 w-100">
-          <AssetButton v-for="asset in filteredAssets" :key="asset.id" :asset="asset" :filters="filtersShorted"/>
+          <AssetCard v-for="asset in filteredAssets" :key="asset.id" :asset="asset" :filters="filtersShorted"/>
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
 import Logo from "../components/Logo";
 import FilterButton from "../components/FilterButton";
 import OptionButton from "../components/OptionButton";
-import AssetButton from "../components/AssetButton";
+import AssetCard from "../components/AssetCard";
 
 export default {
   name: "Inicio",
@@ -71,7 +71,7 @@ export default {
     Logo,
     FilterButton,
     OptionButton,
-    AssetButton
+    AssetCard
   },
   data() {
     return {
