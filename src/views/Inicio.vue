@@ -37,10 +37,22 @@
         </div>
       </div>
       <div class="col-12 col-md-8">
-        <div class="col-12 col-md-8" v-for="asset in filteredAssets" :key="asset.id">
-          {{asset.id}}
-          {{asset.currency}}
-          {{asset.risk_family}}
+        <div class="row mx-0 w-100">
+          <p class="col-12 condensedFont px-0 mb-0 mt-5 formatHeader">ETS FUNDS</p>
+          <svg
+            width="100%"
+            height="1"
+            viewBox="0 0 920 1"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line x1="4.37114e-08" y1="0.5" x2="920" y2="0.50008" stroke="#E0E0E0" />
+          </svg>
+        </div>
+
+        <p v-show="filteredAssets.length == 0" class="condensedFont">No funds data</p>
+        <div v-show="filteredAssets.length > 0" class="row mx-0 w-100">
+          <AssetButton v-for="asset in filteredAssets" :key="asset.id" :asset="asset" :filters="filtersShorted"/>
         </div>
       </div>
     </div>
@@ -51,13 +63,15 @@
 import Logo from "../components/Logo";
 import FilterButton from "../components/FilterButton";
 import OptionButton from "../components/OptionButton";
+import AssetButton from "../components/AssetButton";
 
 export default {
   name: "Inicio",
   components: {
     Logo,
     FilterButton,
-    OptionButton
+    OptionButton,
+    AssetButton
   },
   data() {
     return {
@@ -114,7 +128,7 @@ export default {
 
       filterSelected: "Currency",
 
-      optionSelected: { }
+      optionSelected: {}
     };
   },
   computed: {
@@ -126,13 +140,22 @@ export default {
               filterName: this.filters[i].name,
               icon: option.icon,
               name: option.name
-            }
-          })
+            };
+          });
           // return [this.filters[i]];
         }
       }
       return [];
     },
+
+    filtersShorted(){
+      return this.filters.map(filter => {
+        return {
+          name:filter.name,
+          d: filter.d
+        }
+      })
+    }
 
     // filteredAssets(){
     //   return this.assets.filter(asset => {
@@ -159,32 +182,36 @@ export default {
         }
       });
     },
-    
-    changeAssets(){
+
+    changeAssets() {
       this.filteredAssets = this.assets.filter(asset => {
-        if( (asset.currency == this.optionSelected["Currency"].option || this.optionSelected["Currency"].option == "All") && (asset.risk_family == this.optionSelected["Family Risk"].option || this.optionSelected["Family Risk"].option == "All") ){
-          return true
-        }
-        else{
+        if (
+          (asset.currency == this.optionSelected["Currency"].option ||
+            this.optionSelected["Currency"].option == "All") &&
+          (asset.risk_family == this.optionSelected["Family Risk"].option ||
+            this.optionSelected["Family Risk"].option == "All")
+        ) {
+          return true;
+        } else {
           return false;
         }
-      })
+      });
     },
 
     toggleActiveOption(name) {
-      Event.$emit('changeOption', {
-        filter: this.filterSelected, 
-        option: name,  
-      })
+      Event.$emit("changeOption", {
+        filter: this.filterSelected,
+        option: name
+      });
       this.optionSelected[this.filterSelected].option = name;
 
       this.changeAssets();
     }
   },
 
-  created(){
+  created() {
     this.filters.forEach(filter => {
-      this.optionSelected[filter.name] = {option: filter.options[0].name}
+      this.optionSelected[filter.name] = { option: filter.options[0].name };
     });
   },
 
@@ -206,7 +233,7 @@ export default {
       })
       .catch(err => {
         console.log(err);
-      });  
+      });
   }
 };
 </script>
@@ -220,6 +247,10 @@ export default {
   width: 100%;
 }
 
+.formatHeader {
+  color: #02b5c4;
+}
+
 @media (max-width: 768px) {
   #fstCol {
     height: 100%;
@@ -230,7 +261,7 @@ export default {
   }
 }
 
-@media (min-width: 768px) {  
+@media (min-width: 768px) {
   .h-100 {
     height: 100%;
   }

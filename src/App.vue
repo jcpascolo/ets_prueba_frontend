@@ -31,4 +31,17 @@ body,
   align-items: center;
   letter-spacing: 0.15px;
 }
+
+.lightFont {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #828282;
+}
 </style>
