@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-8">
+      <div class="col-12 col-md-8 overflowAssets">
         <div class="row mx-0 w-100">
           <p class="col-12 condensedFont px-0 mb-0 mt-5 formatHeader">ETS FUNDS</p>
           <svg
@@ -51,7 +51,7 @@
         </div>
 
         <p v-show="filteredAssets.length == 0" class="condensedFont">No funds data</p>
-        <div v-show="filteredAssets.length > 0" class="row mx-0 w-100">
+        <div v-show="filteredAssets.length > 0" class="row mx-0 mb-5 w-100">
           <AssetCard v-for="asset in filteredAssets" :key="asset.id" :asset="asset" :filters="filtersShorted"/>
         </div>
       </div>
@@ -264,6 +264,11 @@ export default {
 @media (min-width: 768px) {
   .h-100 {
     height: 100%;
+  }
+
+  .overflowAssets {
+    height: 100vh;
+    overflow-y: scroll;
   }
 }
 </style>

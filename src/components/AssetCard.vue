@@ -1,9 +1,10 @@
 <template>
   <div class="col-12 px-0 my-3 assetDiv">
-    <div class="row mx-0">
+    <div class="row mx-0 h-100">
       <div class="col-12 col-md-6 px-0 nameAsset d-flex justify-content-center">
         <p class="my-3 px-2 align-items-center condensedFont">{{asset.name}}</p>
       </div>
+
       <div class="col-12 col-md-6 px-0 infoAsset">
         <div class="row mx-0 h-100">
           <div v-for="(filter, index) in filters" :key="filter.name" class="col-6 px-1 h-100">
@@ -22,10 +23,10 @@
               </div>
               <div class="col-10 px-0 d-flex">
                 <p
-                  class="my-0 mt-1 mr-0 pl-1 align-self-center hoverColor lightFont"
+                  class="my-0 mr-0 pl-1 align-self-center hoverColor lightFont"
                 >{{filters[index].name}}</p>
                 <p
-                  class="my-0 pt-1 mr-0 pl-2 pr-1 align-self-center hoverColor lightFont formatedFont"
+                  class="my-0 mr-0 pl-2 pr-1 align-self-center hoverColor lightFont formatedFont"
                 >{{asset[filters[index].name.toLowerCase()] || asset["risk_family"]}}</p>
               </div>
             </div>
@@ -62,26 +63,26 @@ export default {
     border-radius: 10px;
   }
   
-  animation: cursorAnimate 0.6s infinite;
+  //animation: cursorAnimate 0.6s infinite;
 }
 
-@keyframes cursorAnimate{
-  0%{ 
-    cursor: url("../assets/pointerClick1.svg"), auto;
-  }
-  25%{
-    cursor: url("../assets/pointerClick2.svg"), auto;
-  }
-  50%{ 
-    cursor: url("../assets/pointerClick3.svg"), auto;
-  }
-  75%{
-    cursor: url("../assets/pointerClick2.svg"), auto;
-  }
-  100%{ 
-    cursor: url("../assets/pointerClick1.svg"), auto;
-  }
-}
+// @keyframes cursorAnimate{
+//   0%{ 
+//     cursor: url("../assets/pointerClick1.svg"), auto;
+//   }
+//   25%{
+//     cursor: url("../assets/pointerClick2.svg"), auto;
+//   }
+//   50%{ 
+//     cursor: url("../assets/pointerClick3.svg"), auto;
+//   }
+//   75%{
+//     cursor: url("../assets/pointerClick2.svg"), auto;
+//   }
+//   100%{ 
+//     cursor: url("../assets/pointerClick1.svg"), auto;
+//   }
+// }
 
 .nameAsset {
   border-top-left-radius: 10px;
