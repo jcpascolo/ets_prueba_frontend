@@ -1,5 +1,5 @@
 <template>
-  <div id="logo">
+  <router-link to="/" tag="div" id="logo">
     <svg width="94" height="30" viewBox="0 0 94 30" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clip-path="url(#clip0)">
         <path
@@ -118,7 +118,7 @@
         </clipPath>
       </defs>
     </svg>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -141,6 +141,8 @@ export default {
   margin-left: 24px;
   margin-right: 24px;
   margin-top: 31px;
+
+  cursor: url("../assets/pointer.svg"), auto;
 }
 
 @media (max-height: 335px) {
@@ -162,7 +164,7 @@ export default {
     height: 27px;
     margin-left: 16px;
     margin-top: 16px;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
   }
 }
 </style>

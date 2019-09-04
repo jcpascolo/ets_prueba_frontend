@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 px-0 my-3 assetDiv">
+  <router-link :to="'/asset/' + asset.id" tag="div" class="col-12 px-0 my-3 assetDiv">
     <div class="row mx-0 h-100">
       <div class="col-12 col-md-6 px-0 nameAsset d-flex justify-content-center">
         <p class="my-3 px-2 align-items-center condensedFont">{{asset.name}}</p>
@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -114,11 +114,12 @@ export default {
 .condensedFont {
   font-size: 12px;
   line-height: 16px;
+  color: #4F4F4F;
 }
 
 .lightFont.formatedFont {
   font-weight: normal;
-  color: #4f4f4f;
+  color: #4f4f4f !important;
   font-size: 12px;
   line-height: 20px;
   letter-spacing: 0.25px;

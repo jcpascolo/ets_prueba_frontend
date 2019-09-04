@@ -38,7 +38,7 @@
       </div>
       <div class="col-12 col-md-8 overflowAssets">
         <div class="row mx-0 w-100">
-          <p class="col-12 condensedFont px-0 mb-0 mt-5 formatHeader">ETS FUNDS</p>
+          <p class="col-12 condensedFont px-0 mb-0 mt-5">ETS FUNDS</p>
           <svg
             width="100%"
             height="1"
@@ -247,7 +247,7 @@ export default {
   width: 100%;
 }
 
-.formatHeader {
+.condensedFont {
   color: #02b5c4;
 }
 
