@@ -12,6 +12,7 @@ Vue.config.productionTip = false
 
 window.EventHandler = new Vue();
 
+
 new Vue({
   render: h => h(App),
   router,

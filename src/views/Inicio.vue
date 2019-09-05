@@ -147,7 +147,6 @@ export default {
               name: option.name
             };
           });
-          // return [this.filters[i]];
         }
       }
       return [];
@@ -161,21 +160,11 @@ export default {
         };
       });
     }
-
-    // filteredAssets(){
-    //   return this.assets.filter(asset => {
-    //     if( (asset.currency == this.optionSelected["Currency"].option || this.optionSelected["Currency"].option == "All") && (asset.risk_family == this.optionSelected["Family Risk"].option || this.optionSelected["Family Risk"].option == "All") ){
-    //       return true
-    //     }
-    //     else{
-    //       return false;
-    //     }
-    //   })
-    // }
   },
 
   methods: {    
     changeAssets() {
+      let filteredAssetsSummary = []
       this.filteredAssets = this.assets.filter(asset => {
         if (
           (asset.currency == this.optionSelected["Currency"].option ||
@@ -183,11 +172,15 @@ export default {
           (asset.risk_family == this.optionSelected["Family Risk"].option ||
             this.optionSelected["Family Risk"].option == "All")
         ) {
+          filteredAssetsSummary.push({id: asset.id, name: asset.name})
           return true;
         } else {
           return false;
         }
       });
+
+      this.$store.commit("setAssets", filteredAssetsSummary)
+
     },
 
     toggleActiveClass(index) {
@@ -230,7 +223,6 @@ export default {
     fetch("http://jsonstub.com/symbols", {
       method: "GET",
 
-      // THIS IS IMPORTANT
       headers: new Headers({
         "Content-Type": "application/json",
         "JsonStub-User-Key": "6fe1470b-4310-4998-bc11-969c53fd512e",

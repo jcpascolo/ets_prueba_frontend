@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Inicio from './views/Inicio.vue';
 import AssetInfo from './views/AssetInfo.vue';
 
+
 export default new VueRouter({
     mode: 'history',
     routes: [
@@ -15,8 +16,6 @@ export default new VueRouter({
             path: "/asset/:id",
             name:"Asset",
             component: AssetInfo
-        },
-
-        
+        }        
     ]
 });

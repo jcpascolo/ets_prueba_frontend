@@ -10,7 +10,7 @@
       <div class="col-12 px-0">
         <div class="row mx-0">
           <div class="col-12 py-3 returnBtn d-flex">
-            <div class="row mx-0 align-items-start">
+            <router-link to="/" tag="div" class="row mx-0 align-items-start">
               <svg
                 class="my-auto"
                 width="24"
@@ -25,7 +25,7 @@
                 />
               </svg>
               <span class="align-self-center condensedFont ml-2">Volver</span>
-            </div>
+            </router-link>
           </div>
         </div>
         <div class="row mx-0 h-100">
@@ -39,7 +39,7 @@
           </div>
           <div class="col-12 col-md-7 px-2 infoCol h-100">
             <div class="row mx-0">
-              <div class="col-12 my-5">
+              <div class="col-12 my-4">
                 <p class="my-1 lightFont">Name</p>
                 <p class="my-0 condensedFont dataColor">{{assetInfo.name}}</p>
               </div>
@@ -74,7 +74,67 @@
               </div>
             </div>
             <div class="row mx-0">
-              <div class="col-12 mt-4"></div>
+              <div class="col-12 px-0">
+                <div class="row mx-0">
+                  <router-link
+                    tag="div"
+                    class="col-6 px-0 assetLink"
+                    :to="{name:'Asset', params: {id: this.$store.state.assets[this.$store.state.previus].id}}"
+                  >
+                    <div class="row mx-0">
+                      <div class="col-12 col-md-9 px-0 d-flex justify-content-end">
+                        <span
+                          class="align-self-center condensedFont prevFont"
+                        >{{this.$store.state.assets[this.$store.state.previus].name}}</span>
+                      </div>
+                      <div class="col-1 offset-11 offset-md-0 col-md-3 px-0">
+                        <svg
+                          class="prevSvg"
+                          width="80"
+                          height="80"
+                          viewBox="0 0 80 80"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle cx="40" cy="40" r="24.5" stroke="#BDBDBD" />
+                          <path
+                            d="M38.757 40.0001L43.707 44.9501C43.8026 45.0423 43.8787 45.1526 43.9311 45.2747C43.9836 45.3967 44.0111 45.5279 44.0123 45.6607C44.0135 45.7934 43.9882 45.9251 43.9379 46.048C43.8876 46.1709 43.8133 46.2826 43.7194 46.3765C43.6256 46.4703 43.5139 46.5446 43.391 46.5949C43.2681 46.6452 43.1364 46.6705 43.0036 46.6693C42.8709 46.6682 42.7396 46.6406 42.6176 46.5882C42.4956 46.5358 42.3853 46.4596 42.293 46.3641L36.636 40.7071C36.4486 40.5195 36.3433 40.2652 36.3433 40.0001C36.3433 39.7349 36.4486 39.4806 36.636 39.2931L42.293 33.6361C42.4817 33.4539 42.7343 33.3531 42.9964 33.3554C43.2586 33.3577 43.5095 33.4628 43.6949 33.6482C43.8803 33.8336 43.9854 34.0845 43.9877 34.3467C43.99 34.6089 43.8892 34.8615 43.707 35.0501L38.757 40.0001Z"
+                            fill="#BDBDBD"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </router-link>
+                  <router-link
+                    tag="div"
+                    class="col-6 px-0 assetLink"
+                    :to="{name:'Asset', params: {id: this.$store.state.assets[this.$store.state.next].id}}"
+                  >
+                    <div class="row mx-0">
+                      <div class="col-7 offset-5 offset-md-0 col-md-4 col-lg-3 px-0">
+                        <svg
+                          width="80"
+                          height="80"
+                          viewBox="0 0 80 80"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle cx="40" cy="40" r="24.5" stroke="#BDBDBD" />
+                          <path
+                            d="M41.314 40.071L36.364 35.121C36.1818 34.9324 36.081 34.6798 36.0833 34.4176C36.0856 34.1554 36.1907 33.9046 36.3761 33.7192C36.5616 33.5338 36.8124 33.4286 37.0746 33.4263C37.3368 33.424 37.5894 33.5248 37.778 33.707L43.435 39.364C43.6224 39.5515 43.7278 39.8058 43.7278 40.071C43.7278 40.3361 43.6224 40.5905 43.435 40.778L37.778 46.435C37.5894 46.6171 37.3368 46.7179 37.0746 46.7157C36.8124 46.7134 36.5616 46.6082 36.3761 46.4228C36.1907 46.2374 36.0856 45.9866 36.0833 45.7244C36.081 45.4622 36.1818 45.2096 36.364 45.021L41.314 40.071Z"
+                            fill="#BDBDBD"
+                          />
+                        </svg>
+                      </div>
+                      <div class="col-12 col-md-8 col-lg-9 px-0 d-flex justify-content-start">
+                        <span
+                          class="align-self-center condensedFont nextFont"
+                        >{{this.$store.state.assets[this.$store.state.next].name}}</span>
+                      </div>
+                    </div>
+                  </router-link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -96,7 +156,7 @@ export default {
 
   data() {
     return {
-      assetInfo: [],
+      assetInfo: {},
 
       series: [
         {
@@ -215,33 +275,52 @@ export default {
 
   computed: {},
 
-  methods: {},
+  methods: {
+    apiRequest() {
+      fetch("http://jsonstub.com/" + this.$route.params.id, {
+        method: "GET",
 
-  created() {},
+        headers: new Headers({
+          "Content-Type": "application/json",
+          "JsonStub-User-Key": "6fe1470b-4310-4998-bc11-969c53fd512e",
+          "JsonStub-Project-Key": "31597c40-92cb-429a-8394-9cff99a51925"
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          this.assetInfo = data;
+          data.prices.forEach(price => {
+            this.series[0].data.push(price.value);
+            this.chartOptions.series[0].data.push(price.value);
+            this.chartOptions.labels.push(price.date);
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
+    callStore() {
+      this.$store.dispatch("setRoutes", this.$route.params.id);
+    }
+  },
+
+  beforeRouteUpdate(to, from, next) {
+    this.$route.params.id = to.params.id;
+    this.series[0].data = [];
+    this.chartOptions.series[0].data = [];
+    this.chartOptions.labels = [];
+    this.callStore();
+    this.apiRequest();
+    next();
+  },
+
+  created() {
+    this.callStore();
+  },
 
   mounted() {
-    fetch("http://jsonstub.com/" + this.$route.params.id, {
-      method: "GET",
-
-      // THIS IS IMPORTANT
-      headers: new Headers({
-        "Content-Type": "application/json",
-        "JsonStub-User-Key": "6fe1470b-4310-4998-bc11-969c53fd512e",
-        "JsonStub-Project-Key": "31597c40-92cb-429a-8394-9cff99a51925"
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        this.assetInfo = data;
-        data.prices.forEach(price => {
-          this.series[0].data.push(price.value);
-          this.chartOptions.series[0].data.push(price.value);
-          this.chartOptions.labels.push(price.date);
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.apiRequest();
   }
 };
 </script>
@@ -257,6 +336,19 @@ export default {
 
 .infoCol {
   background-color: #f2f2f2;
+
+  .prevFont {
+    font-size: 12px;
+    line-height: 16px;
+    text-align: right;
+    color: #4f4f4f;
+  }
+
+  .nextFont {
+    font-size: 12px;
+    line-height: 16px;
+    color: #4f4f4f;
+  }
 }
 
 .lightFont {
@@ -265,6 +357,18 @@ export default {
 
 .dataColor {
   color: #000000;
+}
+
+.assetLink:hover span {
+  color: #02b5c4;
+}
+
+.assetLink:hover svg path {
+  fill: #02b5c4;
+}
+
+.assetLink:hover svg circle {
+  stroke: #330066;
 }
 
 @media (max-height: 340px) {
@@ -282,6 +386,17 @@ export default {
     .condensedFont {
       text-align: right;
     }
+  }
+
+  .nextFont, .prevFont {
+    display: none;
+  }
+
+}
+
+@media (max-width: 1130px){
+  .nextFont{
+    text-align: right;
   }
 }
 
@@ -308,4 +423,7 @@ export default {
     display: none !important;
   }
 }
+
+
+
 </style>
