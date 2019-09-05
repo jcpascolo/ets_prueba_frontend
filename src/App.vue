@@ -44,4 +44,17 @@ body,
   text-transform: uppercase;
   color: #828282;
 }
+
+.apexcharts-toolbar div svg{
+  fill: white;
+}
+
+.apexcharts-canvas .apexcharts-zoom-icon.selected svg {
+  fill: #093a3d !important;
+}
+
+.apexcharts-gridline{
+  stroke-opacity: 0.2;
+}
+
 </style>

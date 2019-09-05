@@ -52,7 +52,12 @@
 
         <p v-show="filteredAssets.length == 0" class="condensedFont">No funds data</p>
         <div v-show="filteredAssets.length > 0" class="row mx-0 mb-5 w-100">
-          <AssetCard v-for="asset in filteredAssets" :key="asset.id" :asset="asset" :filters="filtersShorted"/>
+          <AssetCard
+            v-for="asset in filteredAssets"
+            :key="asset.id"
+            :asset="asset"
+            :filters="filtersShorted"
+          />
         </div>
       </div>
     </div>
@@ -148,13 +153,13 @@ export default {
       return [];
     },
 
-    filtersShorted(){
+    filtersShorted() {
       return this.filters.map(filter => {
         return {
-          name:filter.name,
+          name: filter.name,
           d: filter.d
-        }
-      })
+        };
+      });
     }
 
     // filteredAssets(){
@@ -169,20 +174,7 @@ export default {
     // }
   },
 
-  methods: {
-    toggleActiveClass(index) {
-      this.filters = this.filters.map((filter, ind) => {
-        if (index == ind) {
-          this.filterSelected = filter.name;
-          filter.isActive = true;
-          return filter;
-        } else {
-          filter.isActive = false;
-          return filter;
-        }
-      });
-    },
-
+  methods: {    
     changeAssets() {
       this.filteredAssets = this.assets.filter(asset => {
         if (
@@ -198,21 +190,40 @@ export default {
       });
     },
 
+    toggleActiveClass(index) {
+      this.filters = this.filters.map((filter, ind) => {
+        if (index == ind) {
+          this.filterSelected = filter.name;
+          filter.isActive = true;
+          return filter;
+        } else {
+          filter.isActive = false;
+          return filter;
+        }
+      });
+    },
+
     toggleActiveOption(name) {
-      Event.$emit("changeOption", {
+      EventHandler.$emit("changeOption", {
         filter: this.filterSelected,
         option: name
       });
       this.optionSelected[this.filterSelected].option = name;
+      this.$store.commit("setFilters", this.optionSelected);
 
       this.changeAssets();
     }
   },
 
   created() {
-    this.filters.forEach(filter => {
-      this.optionSelected[filter.name] = { option: filter.options[0].name };
-    });
+    if (this.$store.state.filters == null) {
+      this.filters.forEach(filter => {
+        this.optionSelected[filter.name] = { option: filter.options[0].name };
+      });
+      this.$store.commit("setFilters", this.optionSelected);
+    } else {
+      this.optionSelected = this.$store.state.filters;
+    }
   },
 
   mounted() {
@@ -229,6 +240,8 @@ export default {
       .then(res => res.json())
       .then(data => {
         this.assets = data;
+      })
+      .then(() => {
         this.changeAssets();
       })
       .catch(err => {

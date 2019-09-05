@@ -73,7 +73,7 @@ export default {
   mounted() {
     this.filterOpt = this.parentFilterOpt;
 
-    Event.$on('changeOption', data => {
+    EventHandler.$on('changeOption', data => {
       if(data.filter == this.filterName){
         this.filterOpt = data.option;
       }

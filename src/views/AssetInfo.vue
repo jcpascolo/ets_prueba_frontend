@@ -11,20 +11,37 @@
         <div class="row mx-0">
           <div class="col-12 py-3 returnBtn d-flex">
             <div class="row mx-0 align-items-start">
-              <svg class="my-auto" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.757 12.0001L15.707 16.9501C15.8025 17.0423 15.8787 17.1526 15.9311 17.2747C15.9835 17.3967 16.0111 17.5279 16.0122 17.6607C16.0134 17.7934 15.9881 17.9251 15.9378 18.048C15.8875 18.1709 15.8133 18.2826 15.7194 18.3765C15.6255 18.4703 15.5138 18.5446 15.3909 18.5949C15.268 18.6452 15.1364 18.6705 15.0036 18.6693C14.8708 18.6682 14.7396 18.6406 14.6176 18.5882C14.4956 18.5358 14.3852 18.4596 14.293 18.3641L8.63599 12.7071C8.44852 12.5195 8.3432 12.2652 8.3432 12.0001C8.3432 11.7349 8.44852 11.4806 8.63599 11.2931L14.293 5.63606C14.4816 5.4539 14.7342 5.35311 14.9964 5.35538C15.2586 5.35766 15.5094 5.46283 15.6948 5.64824C15.8802 5.83365 15.9854 6.08446 15.9877 6.34666C15.9899 6.60885 15.8891 6.86146 15.707 7.05006L10.757 12.0001Z" fill="#02B5C4"/>
+              <svg
+                class="my-auto"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.757 12.0001L15.707 16.9501C15.8025 17.0423 15.8787 17.1526 15.9311 17.2747C15.9835 17.3967 16.0111 17.5279 16.0122 17.6607C16.0134 17.7934 15.9881 17.9251 15.9378 18.048C15.8875 18.1709 15.8133 18.2826 15.7194 18.3765C15.6255 18.4703 15.5138 18.5446 15.3909 18.5949C15.268 18.6452 15.1364 18.6705 15.0036 18.6693C14.8708 18.6682 14.7396 18.6406 14.6176 18.5882C14.4956 18.5358 14.3852 18.4596 14.293 18.3641L8.63599 12.7071C8.44852 12.5195 8.3432 12.2652 8.3432 12.0001C8.3432 11.7349 8.44852 11.4806 8.63599 11.2931L14.293 5.63606C14.4816 5.4539 14.7342 5.35311 14.9964 5.35538C15.2586 5.35766 15.5094 5.46283 15.6948 5.64824C15.8802 5.83365 15.9854 6.08446 15.9877 6.34666C15.9899 6.60885 15.8891 6.86146 15.707 7.05006L10.757 12.0001Z"
+                  fill="#02B5C4"
+                />
               </svg>
               <span class="align-self-center condensedFont ml-2">Volver</span>
-            </div>            
+            </div>
           </div>
         </div>
         <div class="row mx-0 h-100">
-          <div class="col-12 col-md-5 px-2 chartCol h-100">chart</div>
-          <div class="col-7 px-2 infoCol h-100">
+          <div class="col-12 col-md-5 px-2 chartCol h-100">
+            <div class="row mx-0 h-100 align-items-center">
+              <div class="col-12 px-0">
+                <p class="col-12 mb-1 my-md-4 condensedFont">Price Evolution</p>
+                <apexchart type="line" :options="chartOptions" :series="series" />
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-7 px-2 infoCol h-100">
             <div class="row mx-0">
               <div class="col-12 my-5">
                 <p class="my-1 lightFont">Name</p>
-                <p class="my-0 condensedFont dataColor">{{assetInfo.name}}</p>                
+                <p class="my-0 condensedFont dataColor">{{assetInfo.name}}</p>
               </div>
 
               <div class="col-12 my-0">
@@ -41,11 +58,15 @@
               </div>
               <div class="col-12 my-0">
                 <p class="my-1 lightFont">Region</p>
-                <p class="mt-0 mb-3 lightFont dataColor">{{assetInfo.region.name}} / {{assetInfo.region.region_level2.name}} / {{assetInfo.region.region_level2.region_level3.name}}</p>
+                <p
+                  class="mt-0 mb-3 lightFont dataColor"
+                >{{assetInfo.region.name}} / {{assetInfo.region.region_level2.name}} / {{assetInfo.region.region_level2.region_level3.name}}</p>
               </div>
               <div class="col-12 my-0">
                 <p class="my-1 lightFont">Risk Family</p>
-                <p class="mt-0 mb-3 lightFont dataColor">{{assetInfo.risk_family.name}} / {{assetInfo.risk_family.sub_family.name}}</p>
+                <p
+                  class="mt-0 mb-3 lightFont dataColor"
+                >{{assetInfo.risk_family.name}} / {{assetInfo.risk_family.sub_family.name}}</p>
               </div>
               <div class="col-12 my-0">
                 <p class="my-1 lightFont">Sector</p>
@@ -53,30 +74,145 @@
               </div>
             </div>
             <div class="row mx-0">
-              <div class="col-12 mt-4">
-              </div>
+              <div class="col-12 mt-4"></div>
             </div>
           </div>
         </div>
       </div>
-      
     </div>
   </div>
 </template>
 
 <script>
 import Logo from "../components/Logo";
+import VueApexCharts from "vue-apexcharts";
 
 export default {
   name: "AssetInfo",
   components: {
-    Logo
+    Logo,
+    apexchart: VueApexCharts
   },
+
   data() {
     return {
-      assetInfo: []
+      assetInfo: [],
+
+      series: [
+        {
+          name: "Price",
+          data: []
+        }
+      ],
+      chartOptions: {
+        chart: {
+          toolbar: {
+            show: true,
+            tools: {
+              download: true,
+              selection: true,
+              zoom: true,
+              zoomin: true,
+              zoomout: true,
+              pan: false,
+              reset: true | '<img src="/static/icons/reset.png" width="20">',
+              customIcons: []
+            },
+            autoSelected: "zoom"
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: "straight",
+          colors: "#02B5C4"
+        },
+        series: [
+          {
+            name: "Price",
+            data: []
+          }
+        ],
+        labels: [],
+        markers: {
+          size: 0,
+          colors: "#023645",
+          strokeColors: "#fff"
+        },
+        grid: {
+          show: true,
+          borderColor: "#ffffff",
+          xaxis: {
+            lines: {
+              show: true
+            }
+          },
+          yaxis: {
+            lines: {
+              show: true
+            }
+          },
+          row: {
+            colors: "#ffffff",
+            opacity: 0
+          },
+          column: {
+            colors: "#ffffff",
+            opacity: 0
+          },
+          padding: {
+            top: 5
+          }
+        },
+        xaxis: {
+          type: "datetime",
+          tickAmount: 6,
+          labels: {
+            style: {
+              colors: "#ffffff",
+              fontSize: "12px",
+              fontFamily: "Open Sans"
+            },
+            rotate: 0,
+            offsetX: 25,
+            datetimeFormatter: {
+              year: "yyyy"
+            }
+          }
+        },
+        yaxis: {
+          opposite: true,
+          tickAmount: 8,
+          labels: {
+            show: true,
+            align: "right",
+            minWidth: 0,
+            maxWidth: 160,
+            style: {
+              color: "#ffffff",
+              fontSize: "12px",
+              fontFamily: "Open Sans"
+            },
+            offsetX: 0,
+            offsetY: 0,
+            rotate: 0,
+            formatter: value => {
+              return value;
+            }
+          }
+        },
+        tooltip: {
+          enabled: true,
+          x: {
+            show: true,
+            format: "dd MMM yyyy"
+          }
+        }
+      }
     };
   },
+
   computed: {},
 
   methods: {},
@@ -97,6 +233,11 @@ export default {
       .then(res => res.json())
       .then(data => {
         this.assetInfo = data;
+        data.prices.forEach(price => {
+          this.series[0].data.push(price.value);
+          this.chartOptions.series[0].data.push(price.value);
+          this.chartOptions.labels.push(price.date);
+        });
       })
       .catch(err => {
         console.log(err);
@@ -108,21 +249,21 @@ export default {
 <style lang="scss" scoped>
 .chartCol {
   background-image: linear-gradient(90deg, #330066 0%, #02b5c4 100%);
+  .condensedFont {
+    color: white;
+    text-align: center;
+  }
 }
 
 .infoCol {
-  background-color: #F2F2F2;
-}
-
-.condensedFont {
-  color: #828282;
+  background-color: #f2f2f2;
 }
 
 .lightFont {
-  color: #BDBDBD;
+  color: #bdbdbd;
 }
 
-.dataColor{
+.dataColor {
   color: #000000;
 }
 
@@ -133,6 +274,14 @@ export default {
 
   .h-90 {
     height: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .chartCol {
+    .condensedFont {
+      text-align: right;
+    }
   }
 }
 
@@ -155,7 +304,7 @@ export default {
     height: 10%;
   }
 
-  .returnBtn{
+  .returnBtn {
     display: none !important;
   }
 }

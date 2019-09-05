@@ -28,7 +28,7 @@ export default {
       this.isActive = true
     }
 
-    Event.$on('changeOption', data => {
+    EventHandler.$on('changeOption', data => {
       if(data.filter == this.filterName){
         if(data.option == this.name){
           this.isActive = true;
